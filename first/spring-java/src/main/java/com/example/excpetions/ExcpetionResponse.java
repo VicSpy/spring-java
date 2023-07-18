@@ -1,4 +1,4 @@
-package com.excpetions;
+package com.example.excpetions;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -21,24 +21,12 @@ public class ExcpetionResponse implements Serializable {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
-    }
-
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public String getDetails() {
         return details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
     }
 
 }
