@@ -20,7 +20,7 @@ public class PersonServices {
         logger.info("Finding all people");
 
         List<Person> people = new ArrayList<>();
-        for (int i = 0; i < 4;) {
+        for (int i = 0; i < 4; i++) {
             Person person = mockPerson(i);
             people.add(person);
         }
@@ -37,6 +37,22 @@ public class PersonServices {
         person.setAddress("Brasil");
         person.setGender("Male");
         return person;
+    }
+
+    public Person create(Person person) {
+        logger.info("Create");
+
+        return person;
+    }
+
+    public Person update(Person person) {
+        logger.info("Update");
+
+        return person;
+    }
+
+    public void delete(String id) {
+        logger.info("Delete");
     }
 
     private Person mockPerson(int i) {
