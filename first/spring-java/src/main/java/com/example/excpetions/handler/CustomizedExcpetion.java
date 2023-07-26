@@ -11,6 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.example.excpetions.ExcpetionResponse;
+import com.example.excpetions.ResourceNotFoundExcpetion;
 import com.example.excpetions.UnsopportedMathException;
 
 @ControllerAdvice
@@ -31,5 +32,13 @@ public class CustomizedExcpetion extends ResponseEntityExceptionHandler {
                 request.getDescription(false));
 
         return new ResponseEntity<>(excpetionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ResourceNotFoundExcpetion.class)
+    public final ResponseEntity<ExcpetionResponse> handleNotFoundExceptions(Exception ex, WebRequest request) {
+        ExcpetionResponse excpetionResponse = new ExcpetionResponse(new Date(), ex.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<>(excpetionResponse, HttpStatus.NOT_FOUND);
     }
 }
