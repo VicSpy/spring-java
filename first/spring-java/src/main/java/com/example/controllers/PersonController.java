@@ -40,7 +40,7 @@ public class PersonController {
 
     @PatchMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Person update(@RequestBody Person person) throws Exception {
-        return service.create(person);
+        return service.update(person);
     }
 
     @DeleteMapping(value = "/{id}")
