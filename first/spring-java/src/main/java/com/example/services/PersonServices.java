@@ -6,7 +6,9 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.data.vo.v1.PersonVO;
 import com.example.excpetions.ResourceNotFoundExcpetion;
+import com.example.mapper.DozerMapper;
 import com.example.models.Person;
 import com.example.repositories.PersonRepository;
 
@@ -18,36 +20,45 @@ public class PersonServices {
     @Autowired
     PersonRepository repository;
 
-    public List<Person> findAll() {
+    public List<PersonVO> findAll() {
         logger.info("List");
 
-        return repository.findAll();
+        return DozerMapper.parseObjects(repository.findAll(), PersonVO.class);
     }
 
-    public Person findById(Long id) {
-        logger.info("Finding one person");
+    public PersonVO findById(Long id) {
+        logger.info("Show");
 
-        return repository.findById(id)
+        var object = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundExcpetion("Not found"));
+
+        return DozerMapper.parseObject(object, PersonVO.class);
     }
 
-    public Person create(Person person) {
+    public PersonVO create(PersonVO person) {
         logger.info("Create");
 
-        return repository.save(person);
+        var object = DozerMapper.parseObject(person, Person.class);
+
+        var vo = DozerMapper.parseObject(repository.save(object), PersonVO.class);
+
+        return vo;
     }
 
-    public Person update(Person person) {
+    public PersonVO update(PersonVO person) {
         logger.info("Update");
 
-        var record = repository.findById(person.getId()).orElseThrow(() -> new ResourceNotFoundExcpetion("Not found"));
+        var object = repository.findById(person.getId()).orElseThrow(() -> new ResourceNotFoundExcpetion("Not found"));
 
-        record.setFirstName(person.getFirstName());
-        record.setLastName(person.getLastName());
-        record.setAddress(person.getAddress());
-        record.setGender(person.getGender());
+        object.setFirstName(person.getFirstName());
+        object.setLastName(person.getLastName());
+        object.setAddress(person.getAddress());
+        object.setGender(person.getGender());
 
-        return repository.save(person);
+        
+        var vo = DozerMapper.parseObject(repository.save(object), PersonVO.class);
+
+        return vo;
     }
 
     public void delete(Long id) {
