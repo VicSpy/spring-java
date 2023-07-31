@@ -11,6 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.example.excpetions.ExcpetionResponse;
+import com.example.excpetions.ObjectIsNullExcpetion;
 import com.example.excpetions.ResourceNotFoundExcpetion;
 import com.example.excpetions.UnsopportedMathException;
 
@@ -26,13 +27,13 @@ public class CustomizedExcpetion extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(excpetionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(UnsopportedMathException.class)
-    public final ResponseEntity<ExcpetionResponse> handleBadRequestExceptions(Exception ex, WebRequest request) {
-        ExcpetionResponse excpetionResponse = new ExcpetionResponse(new Date(), ex.getMessage(),
-                request.getDescription(false));
+    // @ExceptionHandler(UnsopportedMathException.class)
+    // public final ResponseEntity<ExcpetionResponse> handleBadRequestExceptions(Exception ex, WebRequest request) {
+    //     ExcpetionResponse excpetionResponse = new ExcpetionResponse(new Date(), ex.getMessage(),
+    //             request.getDescription(false));
 
-        return new ResponseEntity<>(excpetionResponse, HttpStatus.BAD_REQUEST);
-    }
+    //     return new ResponseEntity<>(excpetionResponse, HttpStatus.BAD_REQUEST);
+    // }
 
     @ExceptionHandler(ResourceNotFoundExcpetion.class)
     public final ResponseEntity<ExcpetionResponse> handleNotFoundExceptions(Exception ex, WebRequest request) {
@@ -40,5 +41,13 @@ public class CustomizedExcpetion extends ResponseEntityExceptionHandler {
                 request.getDescription(false));
 
         return new ResponseEntity<>(excpetionResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ObjectIsNullExcpetion.class)
+    public final ResponseEntity<ExcpetionResponse> handleBadRequestExceptions(Exception ex, WebRequest request) {
+        ExcpetionResponse excpetionResponse = new ExcpetionResponse(new Date(), ex.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<>(excpetionResponse, HttpStatus.BAD_REQUEST);
     }
 }

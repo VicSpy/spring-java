@@ -41,13 +41,6 @@ public class PersonController {
         return service.create(person);
     }
 
-    @PostMapping(value = "/v2", produces = { MediaType.APPLICATION_JSON_VALUE,
-            MediaType.APPLICATION_XML_VALUE }, consumes = { MediaType.APPLICATION_JSON_VALUE,
-                    MediaType.APPLICATION_XML_VALUE })
-    public PersonVOV2 createV2(@RequestBody PersonVOV2 person) throws Exception {
-        return service.createV2(person);
-    }
-
     @PatchMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE,
             MediaType.APPLICATION_XML_VALUE }, consumes = { MediaType.APPLICATION_JSON_VALUE,
                     MediaType.APPLICATION_XML_VALUE })

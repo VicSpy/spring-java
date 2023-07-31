@@ -11,11 +11,13 @@ import org.springframework.stereotype.Service;
 import com.example.controllers.PersonController;
 import com.example.data.vo.v1.PersonVO;
 import com.example.data.vo.v2.PersonVOV2;
+import com.example.excpetions.ObjectIsNullExcpetion;
 import com.example.excpetions.ResourceNotFoundExcpetion;
 import com.example.mapper.DozerMapper;
 import com.example.mapper.custom.PersonMapper;
 import com.example.models.Person;
 import com.example.repositories.PersonRepository;
+import com.github.dozermapper.core.DozerConverter;
 
 @Service
 public class PersonServices {
@@ -54,7 +56,8 @@ public class PersonServices {
     }
 
     public PersonVO create(PersonVO person) throws Exception {
-        logger.info("Create");
+        if (person == null)
+            throw new ObjectIsNullExcpetion();
 
         var object = DozerMapper.parseObject(person, Person.class);
 
@@ -64,7 +67,8 @@ public class PersonServices {
     }
 
     public PersonVO update(PersonVO person) throws Exception {
-        logger.info("Update");
+        if (person == null)
+            throw new ObjectIsNullExcpetion();
 
         var object = repository.findById(person.getKey()).orElseThrow(() -> new ResourceNotFoundExcpetion("Not found"));
 
