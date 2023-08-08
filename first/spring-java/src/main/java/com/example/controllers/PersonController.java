@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.data.vo.v1.PersonVO;
-import com.example.data.vo.v2.PersonVOV2;
 import com.example.services.PersonServices;
 
 @RestController("PersonController")
